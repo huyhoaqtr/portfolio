@@ -1,7 +1,9 @@
 import './globals.css';
 import type { Metadata } from 'next';
+import { cookies } from 'next/headers';
 import { Inter, Sora } from 'next/font/google';
 import { siteConfig } from '@/config/site';
+import { getLocale, localeCookieName } from '@/lib/i18n';
 import Providers from './providers';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
@@ -37,13 +39,19 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+  const initialLocale = getLocale(cookies().get(localeCookieName)?.value);
+
   return (
-    <html lang="en" suppressHydrationWarning className={`${inter.variable} ${sora.variable} dark`}>
+    <html
+      lang={initialLocale}
+      suppressHydrationWarning
+      className={`${inter.variable} ${sora.variable} dark`}
+    >
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
       <body className="min-h-screen bg-background text-foreground">
-        <Providers>{children}</Providers>
+        <Providers initialLocale={initialLocale}>{children}</Providers>
       </body>
     </html>
   );

@@ -1,16 +1,51 @@
 import { NextRequest } from 'next/server';
-import { projects } from '@/data/projects';
-import { experience } from '@/data/experience';
-import { education } from '@/data/education';
-import { skills } from '@/data/skills';
 import { siteConfig } from '@/config/site';
+import {
+  defaultLocale,
+  getLocale,
+  getMessages,
+  getMessageValue,
+  getTranslator,
+  type Locale,
+} from '@/lib/i18n';
 
 interface ChatMessage {
   role: 'user' | 'assistant' | 'system';
   content: string;
 }
 
-function buildContextSummary() {
+interface ProjectItem {
+  title: string;
+  description: string;
+  tech: string[];
+  href?: string;
+}
+
+interface ExperienceItem {
+  company: string;
+  role: string;
+  period: string;
+  achievements: string[];
+}
+
+interface EducationItem {
+  school: string;
+  degree: string;
+  details?: string[];
+}
+
+interface SkillGroup {
+  category: string;
+  skills: string[];
+}
+
+function buildContextSummary(locale: Locale) {
+  const messages = getMessages(locale);
+  const t = getTranslator(locale);
+  const projects = getMessageValue<ProjectItem[]>(messages, 'home.projects.items');
+  const experience = getMessageValue<ExperienceItem[]>(messages, 'home.experience.items');
+  const education = getMessageValue<EducationItem[]>(messages, 'home.education.items');
+  const skills = getMessageValue<SkillGroup[]>(messages, 'home.skills.groups');
   const proj = projects
     .map(
       (p) =>
@@ -30,20 +65,26 @@ function buildContextSummary() {
     )
     .join('\n');
   const skillStr = skills.map((g) => `${g.category}: ${g.skills.join(', ')}`).join(' | ');
-  return (
-    `You are an AI assistant embedded in the personal portfolio site for ${siteConfig.name}.\n` +
-    `Site Description: ${siteConfig.description}\n` +
-    `Primary contact email: ${siteConfig.links.email}.\n` +
-    `Answer concisely, professionally, and ONLY about Huy Hoang's background, experience, projects, skills, education, and how to get in touch. ` +
-    `If asked unrelated questions, politely redirect to relevant topics.\n` +
-    `Projects:\n${proj}\n\nExperience:\n${exp}\n\nEducation:\n${edu}\n\nSkills:\n${skillStr}`
-  );
+  return [
+    t('chat.system.intro', { name: siteConfig.name }),
+    t('chat.system.siteDescription', { description: siteConfig.description }),
+    t('chat.system.contact', { email: siteConfig.links.email }),
+    t('chat.system.instructions'),
+    t('chat.system.redirect'),
+    t('chat.system.respondLanguage', { language: t('common.responseLanguage') }),
+    `${t('chat.system.sections.projects')}:\n${proj}`,
+    `${t('chat.system.sections.experience')}:\n${exp}`,
+    `${t('chat.system.sections.education')}:\n${edu}`,
+    `${t('chat.system.sections.skills')}:\n${skillStr}`,
+  ].join('\n\n');
 }
 
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
     const messages: ChatMessage[] = body?.messages || [];
+    const locale = getLocale(body?.locale);
+    const t = getTranslator(locale);
     const requestedProvider: string | undefined = body?.provider; // optional override from client
 
     const openaiKey = process.env.OPENAI_API_KEY;
@@ -59,17 +100,17 @@ export async function POST(req: NextRequest) {
 
     if (provider === 'fallback') {
       const lastUser = [...messages].reverse().find((m) => m.role === 'user');
-      const fallback =
-        'Chat AI (fallback): Configure GEMINI_API_KEY or OPENAI_API_KEY in .env.local for full answers. ' +
-        'Summary: Huy Hoang is a full-stack engineer (Node.js, NestJS, Next.js, Go, Solidity, Kubernetes). Ask about projects, experience, skills, or contact.' +
-        (lastUser ? ` You asked: "${lastUser.content}"` : '');
+      const fallback = t('chat.fallbackReply', {
+        summary: t('chat.fallbackSummary'),
+        questionSuffix: lastUser ? t('chat.questionSuffix', { question: lastUser.content }) : '',
+      });
       return new Response(JSON.stringify({ reply: fallback, fallback: true, provider }), {
         status: 200,
         headers: { 'Content-Type': 'application/json' },
       });
     }
 
-    const systemPrompt = buildContextSummary();
+    const systemPrompt = buildContextSummary(locale);
     const recent = messages.slice(-10);
 
     if (provider === 'openai') {
@@ -92,7 +133,7 @@ export async function POST(req: NextRequest) {
       if (!openAiRes.ok) {
         const errorText = await openAiRes.text();
         return new Response(
-          JSON.stringify({ error: 'OpenAI upstream error', details: errorText, provider }),
+          JSON.stringify({ error: t('chat.openAiUpstreamError'), details: errorText, provider }),
           {
             status: 500,
             headers: { 'Content-Type': 'application/json' },
@@ -100,7 +141,7 @@ export async function POST(req: NextRequest) {
         );
       }
       const data = await openAiRes.json();
-      const reply = data.choices?.[0]?.message?.content?.trim() || 'No response generated.';
+      const reply = data.choices?.[0]?.message?.content?.trim() || t('chat.noResponseGenerated');
       return new Response(JSON.stringify({ reply, provider, model: 'gpt-3.5-turbo' }), {
         status: 200,
         headers: { 'Content-Type': 'application/json' },
@@ -132,7 +173,7 @@ export async function POST(req: NextRequest) {
     if (!geminiRes.ok) {
       const errorText = await geminiRes.text();
       return new Response(
-        JSON.stringify({ error: 'Gemini upstream error', details: errorText, provider }),
+        JSON.stringify({ error: t('chat.geminiUpstreamError'), details: errorText, provider }),
         { status: 500, headers: { 'Content-Type': 'application/json' } },
       );
     }
@@ -141,16 +182,20 @@ export async function POST(req: NextRequest) {
       geminiData?.candidates?.[0]?.content?.parts
         ?.map((p: any) => p.text)
         .join('\n')
-        .trim() || 'No response generated.';
+        .trim() || t('chat.noResponseGenerated');
     return new Response(JSON.stringify({ reply, provider, model: geminiModel }), {
       status: 200,
       headers: { 'Content-Type': 'application/json' },
     });
   } catch (e: any) {
-    return new Response(JSON.stringify({ error: e?.message || 'Unexpected error' }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    const fallbackTranslator = getTranslator(defaultLocale);
+    return new Response(
+      JSON.stringify({ error: e?.message || fallbackTranslator('chat.unexpectedError') }),
+      {
+        status: 500,
+        headers: { 'Content-Type': 'application/json' },
+      },
+    );
   }
 }
 

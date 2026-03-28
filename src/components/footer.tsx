@@ -1,12 +1,12 @@
-import { siteConfig } from '../config/site';
+'use client';
+import { useTranslations } from '@/context/locale-context';
 
 export function Footer() {
+  const t = useTranslations();
+
   return (
     <footer className="border-t border-border/80 py-10 text-center text-xs text-muted-foreground">
-      <p>
-        © {new Date().getFullYear()} {siteConfig.name}. Built with Next.js 14, Tailwind, Framer
-        Motion.
-      </p>
+      <p>{t('footer.copyright', { year: new Date().getFullYear(), name: t('common.name') })}</p>
     </footer>
   );
 }

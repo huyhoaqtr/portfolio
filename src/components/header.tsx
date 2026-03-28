@@ -1,16 +1,18 @@
 'use client';
 import Link from 'next/link';
+import { useTranslations } from '@/context/locale-context';
 import AppLogo from '@/components/logo';
 import { ThemeToggle } from '@/components/theme-toggle';
 import { LanguageToggle } from '@/components/language-toggle';
-
-const nav = [
-  { href: '#projects', label: 'Projects' },
-  { href: '#experience', label: 'Experience' },
-  { href: '#skills', label: 'Skills' },
-  { href: '#contact', label: 'Contact' },
-];
 export function Header() {
+  const t = useTranslations('common.nav');
+  const nav = [
+    { href: '#projects', label: t('projects') },
+    { href: '#experience', label: t('experience') },
+    { href: '#skills', label: t('skills') },
+    { href: '#contact', label: t('contact') },
+  ];
+
   return (
     <header className="pointer-events-none fixed inset-x-0 top-0 z-50 flex justify-center">
       <div className="w-full max-w-7xl px-6">

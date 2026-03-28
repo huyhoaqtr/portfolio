@@ -1,17 +1,19 @@
 'use client';
 
-import { useState } from 'react';
+import { useLocale, useTranslations } from '@/context/locale-context';
 
 export function LanguageToggle() {
-  const [lang, setLang] = useState<'en' | 'vi'>('en');
+  const { locale, setLocale } = useLocale();
+  const t = useTranslations('languageToggle');
 
   return (
     <button
-      onClick={() => setLang(lang === 'en' ? 'vi' : 'en')}
+      onClick={() => setLocale(locale === 'en' ? 'vi' : 'en')}
       type="button"
+      aria-label={t('label')}
       className="icon-button h-8 w-8 rounded-lg px-2 py-1 text-xs font-semibold uppercase"
     >
-      {lang.toUpperCase()}
+      {locale.toUpperCase()}
     </button>
   );
 }

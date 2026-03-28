@@ -2,11 +2,7 @@
 import { cn } from '@/lib/cn';
 import { useEffect, useState } from 'react';
 
-export function TypingTextStyled({
-  text = 'Software Engineer\n& Fullstack Developer',
-}: {
-  text: string;
-}) {
+export function TypingTextStyled({ text = '' }: { text: string }) {
   const splitIndex = text.indexOf('&');
 
   const [displayed, setDisplayed] = useState('');

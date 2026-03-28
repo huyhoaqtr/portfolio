@@ -1,0 +1,241 @@
+{
+  "common": {
+    "name": "Huy Hoang",
+    "responseLanguage": "English",
+    "nav": {
+      "projects": "Projects",
+      "experience": "Experience",
+      "skills": "Skills",
+      "contact": "Contact"
+    },
+    "actions": {
+      "getInTouch": "Get in touch",
+      "resume": "Resume",
+      "viewProject": "View project",
+      "sayHello": "Say hello",
+      "github": "GitHub",
+      "returnHome": "Return home"
+    },
+    "social": {
+      "findMeOn": "Find me on",
+      "github": "GitHub",
+      "npm": "NPM",
+      "email": "Email"
+    }
+  },
+  "logo": {
+    "alt": "Logo",
+    "role": "Software Engineer"
+  },
+  "themeToggle": {
+    "toLight": "Switch to light theme",
+    "toDark": "Switch to dark theme"
+  },
+  "languageToggle": {
+    "label": "Switch language"
+  },
+  "footer": {
+    "copyright": "© {year} {name}. Built with Next.js 14, Tailwind, Framer Motion."
+  },
+  "notFound": {
+    "description": "Page not found."
+  },
+  "chat": {
+    "assistantTitle": "AI Assistant",
+    "welcome": "Hi, I'm the embedded AI assistant. Ask me about Huy Hoang's projects, experience, skills, or how to get in touch!",
+    "thinking": "Thinking",
+    "reset": "Reset",
+    "placeholder": "Ask about anything...",
+    "open": "Open chat assistant",
+    "close": "Close chat assistant",
+    "apiError": "Error: {message}. Try again later.",
+    "networkError": "Network error: {message}",
+    "unknownError": "Unknown error",
+    "openAiUpstreamError": "OpenAI upstream error",
+    "geminiUpstreamError": "Gemini upstream error",
+    "noResponseGenerated": "No response generated.",
+    "unexpectedError": "Unexpected error",
+    "fallbackReply": "Chat AI (fallback): Configure GEMINI_API_KEY or OPENAI_API_KEY in .env.local for full answers. Summary: {summary}{questionSuffix}",
+    "fallbackSummary": "Huy Hoang is a full-stack engineer focused on scalable web applications with Node.js, NestJS, Next.js, React, .NET, and Docker. Ask about projects, experience, skills, education, or contact.",
+    "questionSuffix": " You asked: \"{question}\"",
+    "system": {
+      "intro": "You are an AI assistant embedded in the personal portfolio site for {name}.",
+      "siteDescription": "Site Description: {description}",
+      "contact": "Primary contact email: {email}.",
+      "instructions": "Answer concisely, professionally, and only about Huy Hoang's background, experience, projects, skills, education, and how to get in touch.",
+      "redirect": "If asked unrelated questions, politely redirect to relevant topics.",
+      "respondLanguage": "Respond in {language}.",
+      "sections": {
+        "projects": "Projects",
+        "experience": "Experience",
+        "education": "Education",
+        "skills": "Skills"
+      }
+    }
+  },
+  "home": {
+    "hero": {
+      "availability": "Available for new opportunities",
+      "title": "Software Engineer\n& Fullstack Developer",
+      "intro": "I'm {name} — a software engineer building scalable, high-performance web applications across frontend and backend, focused on clean architecture and modern technologies."
+    },
+    "services": {
+      "title": "What I Do",
+      "subtitle": "What I focus on and how I build systems",
+      "items": [
+        {
+          "title": "Full-stack Web Development",
+          "description": "Building modern web applications with React, Next.js, and .NET / Node.js, focusing on performance and clean architecture."
+        },
+        {
+          "title": "Backend & System Design",
+          "description": "Building scalable APIs and reliable backend systems with PostgreSQL and real-time data."
+        },
+        {
+          "title": "Monitoring & Observability",
+          "description": "Developing monitoring systems using Prometheus, Grafana, and custom dashboards for real-time system insights and alerting."
+        },
+        {
+          "title": "DevOps & Infrastructure",
+          "description": "Deploying and managing applications with Docker, CI/CD pipelines, and cloud-based environments."
+        }
+      ]
+    },
+    "projects": {
+      "title": "Projects",
+      "subtitle": "A selection of things I've built and shipped",
+      "featuredLabel": "Featured",
+      "items": [
+        {
+          "title": "AI Log Monitoring System",
+          "description": "A real-time log monitoring system with anomaly detection, alerting, and visualization dashboard. Designed to process syslog data and provide insights using AI.",
+          "tech": ["Next.js", "NestJS", "PostgreSQL", "Prometheus", "Grafana", "Docker"],
+          "featured": true
+        },
+        {
+          "title": "Network Monitoring Platform",
+          "description": "A full-stack monitoring platform for tracking server health, ports, processes, and system metrics with real-time alerts and customizable thresholds.",
+          "tech": ["React", "Node.js", "Prometheus", "Node Exporter", "Recharts"],
+          "featured": true
+        },
+        {
+          "title": "LibreNMS Custom Dashboard",
+          "description": "Customized LibreNMS interface with improved UI/UX, advanced search features, and SSO authentication integration.",
+          "tech": ["PHP", "Laravel", "Alpine.js", "MySQL"]
+        },
+        {
+          "title": "MQTT Alarm Processing System",
+          "description": "A system for processing real-time MQTT alarm data, mapping error definitions, and storing structured alerts for monitoring applications.",
+          "tech": ["Node.js", "MQTT", "Redis", "PostgreSQL"]
+        },
+        {
+          "title": "Reusable React UI Components",
+          "description": "A collection of reusable UI components including Tree View, tables, and dashboards built with modern design systems.",
+          "tech": ["React", "TypeScript", "Tailwind", "shadcn/ui"]
+        },
+        {
+          "title": "Authentication System with JWT & Refresh Token",
+          "description": "Secure authentication system with access/refresh tokens, cookie-based storage, and automatic token renewal.",
+          "tech": [".NET Core", "PostgreSQL", "JWT"]
+        },
+        {
+          "title": "System Metrics Visualization Dashboard",
+          "description": "Interactive dashboard for visualizing CPU, memory, disk, and network metrics using modern chart libraries.",
+          "tech": ["React", "Recharts", "REST API"]
+        }
+      ]
+    },
+    "experience": {
+      "title": "Experience",
+      "subtitle": "My professional journey so far",
+      "items": [
+        {
+          "company": "Self-initiated Project",
+          "role": "Full-stack Engineer",
+          "period": "2025 – Present",
+          "achievements": [
+            "Building a real-time monitoring system with alerting and visualization dashboard",
+            "Designing scalable backend services and API architecture",
+            "Implementing frontend dashboard with modern UI components"
+          ]
+        },
+        {
+          "company": "Upcoming Project",
+          "role": "Backend Engineer",
+          "period": "2025",
+          "achievements": [
+            "Designing a system for processing real-time data streams and event-driven architecture",
+            "Planning integration with messaging protocols and caching strategies"
+          ]
+        },
+        {
+          "company": "Upcoming Project",
+          "role": "Frontend Engineer",
+          "period": "2025",
+          "achievements": [
+            "Developing reusable UI components and dashboard interfaces",
+            "Focusing on performance optimization and user experience improvements"
+          ]
+        }
+      ]
+    },
+    "skills": {
+      "title": "Tech Stack",
+      "subtitle": "Technologies and tools I work with daily",
+      "groups": [
+        {
+          "category": "Languages",
+          "skills": ["TypeScript", "JavaScript", "C#", "PHP", "SQL"]
+        },
+        {
+          "category": "Frontend",
+          "skills": [
+            "React",
+            "Next.js",
+            "Antd",
+            "Material UI",
+            "TailwindCSS",
+            "Recharts",
+            "TanStack",
+            "Redux",
+            "Zustand"
+          ]
+        },
+        {
+          "category": "Backend",
+          "skills": ["Node.js", "NestJS", ".NET Core", "REST API", "Laravel"]
+        },
+        {
+          "category": "Databases",
+          "skills": ["PostgreSQL", "MySQL", "Redis", "MongoDB"]
+        },
+        {
+          "category": "DevOps",
+          "skills": ["Docker", "GitLab CI", "CI/CD", "AWS", "Linux"]
+        },
+        {
+          "category": "Testing",
+          "skills": ["Unit Testing", "Integration Testing", "E2E Testing"]
+        }
+      ]
+    },
+    "education": {
+      "title": "Education",
+      "items": [
+        {
+          "school": "The University of Da Nang",
+          "degree": "Software Engineering",
+          "period": "—",
+          "details": [
+            "Coursework: Software Architecture, Distributed Systems, Database Systems, Algorithms"
+          ]
+        }
+      ]
+    },
+    "contact": {
+      "titleStart": "Let's build something",
+      "titleHighlight": "together",
+      "description": "Open for full-time, contracting, or open source collaboration."
+    }
+  }
+}
