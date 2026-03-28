@@ -8,7 +8,7 @@ export interface EducationItem {
 export const education: EducationItem[] = [
   {
     school: 'The University of Da Nang',
-    degree: 'B.S. Software Engineering',
+    degree: 'Software Engineering',
     period: '—',
     details: [
       'Coursework: Software Architecture, Distributed Systems, Database Systems, Algorithms',

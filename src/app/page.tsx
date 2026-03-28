@@ -49,7 +49,7 @@ function Hero() {
     <div className="relative w-full h-auto">
       <section className="flex min-h-[85vh] flex-col justify-center py-32">
         <FadeIn>
-          <div className="inline-flex items-center gap-2 rounded-full border border-zinc-800 bg-zinc-900/60 px-4 py-1.5 text-xs font-medium text-zinc-400 mb-8">
+          <div className="inline-flex items-center gap-2 rounded-xl border border-zinc-800 bg-zinc-900/60 px-4 py-1.5 text-xs font-medium text-zinc-400 mb-8">
             <span className="relative flex h-2 w-2">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500 opacity-75" />
               <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
@@ -65,7 +65,7 @@ function Hero() {
         </FadeIn>
 
         <FadeIn delay={0.1}>
-          <p className="mt-6 max-w-3xl text-base leading-relaxed text-zinc-400 md:text-lg">
+          <p className="mt-6 max-w-3xl text-sm leading-relaxed text-zinc-400 md:text-lg ">
             I&apos;m <span className="text-white font-semibold">Huy Hoang</span> — a software engineer building scalable, high-performance web applications across frontend and backend, focused on clean architecture and modern technologies.
           </p>
         </FadeIn>
@@ -125,29 +125,29 @@ function WhatIDo() {
   const services = [
     {
       icon: <Globe size={22} />,
-      title: 'Web Development',
-      desc: 'Full-stack applications with React, Next.js, NestJS and Go',
-    },
-    {
-      icon: <Shield size={22} />,
-      title: 'Blockchain / Web3',
-      desc: 'Smart contracts, DeFi protocols, NFT platforms with Solidity',
+      title: 'Full-stack Web Development',
+      desc: 'Building modern web applications with React, Next.js, and .NET / Node.js, focusing on performance and clean architecture.',
     },
     {
       icon: <Terminal size={22} />,
-      title: 'Backend Systems',
-      desc: 'Scalable APIs, microservices, databases and message queues',
+      title: 'Backend & System Design',
+      desc: 'Designing scalable APIs, handling real-time data, and building reliable backend systems with PostgreSQL and message-driven architecture.',
     },
     {
       icon: <Zap size={22} />,
-      title: 'DevOps & Cloud',
-      desc: 'Kubernetes, Docker, CI/CD pipelines and AWS infrastructure',
+      title: 'Monitoring & Observability',
+      desc: 'Developing monitoring systems using Prometheus, Grafana, and custom dashboards for real-time system insights and alerting.',
+    },
+    {
+      icon: <Shield size={22} />,
+      title: 'DevOps & Infrastructure',
+      desc: 'Deploying and managing applications with Docker, CI/CD pipelines, and cloud-based environments.',
     },
   ];
 
   return (
     <section className="py-24">
-      <SectionTitle sub="Areas of expertise and what I bring to the table">
+      <SectionTitle sub="What I focus on and how I build systems">
         What I Do
       </SectionTitle>
       <div className="grid gap-4 sm:grid-cols-2">

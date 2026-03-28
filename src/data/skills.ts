@@ -3,13 +3,24 @@ export interface SkillGroup {
   skills: string[];
 }
 export const skills: SkillGroup[] = [
-  { category: 'Languages', skills: ['TypeScript', 'JavaScript', 'Python', 'Go', 'SQL'] },
-  { category: 'Backend', skills: ['Node.js', 'NestJs', 'tRPC', 'Typeorm', 'REST', 'GraphQL'] },
+  {
+    category: 'Languages',
+    skills: ['TypeScript', 'JavaScript', 'C#', 'PHP', 'SQL'],
+  },
   {
     category: 'Frontend',
-    skills: ['React', 'Next.js', 'TailwindCSS', 'Framer Motion', 'Redux', 'Zustand'],
+    skills: ['React', 'Next.js', 'Antd', 'Material UI', 'TailwindCSS', 'Recharts', 'TanStack', 'Redux', 'Zustand'],
   },
-  { category: 'DevOps', skills: ['Docker', 'Gitlab CI', 'K8S', 'AWS', 'CI/CD'] },
-  { category: 'Databases', skills: ['PostgreSQL', 'MySQL', 'Redis', 'MongoDB'] },
-  { category: 'Testing', skills: ['Jest'] },
+  {
+    category: 'Backend',
+    skills: ['Node.js', 'NestJS', '.NET Core', 'REST API', 'Laravel'],
+  },
+  {
+    category: 'Databases & Cache',
+    skills: ['PostgreSQL', 'MySQL', 'Redis', 'MongoDB'],
+  },
+  {
+    category: 'DevOps',
+    skills: ['Docker', 'GitLab CI', 'CI/CD', 'AWS', 'Linux'],
+  },
 ];

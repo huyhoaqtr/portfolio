@@ -9,62 +9,47 @@ export interface ProjectItem {
 
 export const projects: ProjectItem[] = [
   {
-    title: 'Nexus Code',
+    title: 'AI Log Monitoring System',
     description:
-      'AI-powered code review SaaS with GPT-4 & Claude integration, team workspaces, Git webhooks, and USDC blockchain payments.',
-    tech: ['Next.js', 'NestJS', 'TypeScript', 'PostgreSQL', 'Solidity', 'ethers.js'],
-    href: 'https://nexus-code.hoanle.app/',
+      'A real-time log monitoring system with anomaly detection, alerting, and visualization dashboard. Designed to process syslog data and provide insights using AI.',
+    tech: ['Next.js', 'NestJS', 'PostgreSQL', 'Prometheus', 'Grafana', 'Docker'],
     featured: true,
   },
   {
-    title: 'TuneVibe Platform',
+    title: 'Network Monitoring Platform',
     description:
-      'Full-stack audio/podcast platform with streaming, decentralized storage, token economy, and IPFS integration.',
-    tech: ['Next.js', 'NestJS', 'Solidity', 'IPFS', 'PostgreSQL', 'K8s'],
-    href: 'https://tunevibe-fe.vercel.app',
+      'A full-stack monitoring platform for tracking server health, ports, processes, and system metrics with real-time alerts and customizable thresholds.',
+    tech: ['React', 'Node.js', 'Prometheus', 'Node Exporter', 'Recharts'],
     featured: true,
   },
   {
-    title: 'Discord AI Bot',
+    title: 'LibreNMS Custom Dashboard',
     description:
-      'Intelligent Discord bot with AI-powered conversations and server management capabilities.',
-    tech: ['TypeScript', 'Discord.js', 'AI APIs'],
-    href: 'https://github.com/Hoanle396/Discord-AI',
+      'Customized LibreNMS interface with improved UI/UX, advanced search features, and SSO authentication integration.',
+    tech: ['PHP', 'Laravel', 'Alpine.js', 'MySQL'],
   },
   {
-    title: 'Go Logger',
+    title: 'MQTT Alarm Processing System',
     description:
-      'Structured logging library for Go with leveled output, custom formatters, and zero-dependency design.',
-    tech: ['Go'],
-    href: 'https://github.com/Hoanle396/logger',
+      'A system for processing real-time MQTT alarm data, mapping error definitions, and storing structured alerts for monitoring applications.',
+    tech: ['Node.js', 'MQTT', 'Redis', 'PostgreSQL'],
   },
   {
-    title: 'hdrajs',
+    title: 'Reusable React UI Components',
     description:
-      'Lightweight TypeScript utility library with reusable helpers, published on NPM.',
-    tech: ['TypeScript', 'NPM'],
-    href: 'https://www.npmjs.com/package/hdrajs',
+      'A collection of reusable UI components including Tree View, tables, and dashboards built with modern design systems.',
+    tech: ['React', 'TypeScript', 'Tailwind', 'shadcn/ui'],
   },
   {
-    title: 'viet-qr',
+    title: 'Authentication System with JWT & Refresh Token',
     description:
-      'NPM package for generating Vietnam bank QR codes for instant payments.',
-    tech: ['JavaScript', 'NPM', 'QR'],
-    href: 'https://www.npmjs.com/package/@hoanle396/viet-qr',
-    stars: 2,
+      'Secure authentication system with access/refresh tokens, cookie-based storage, and automatic token renewal.',
+    tech: ['.NET Core', 'PostgreSQL', 'JWT'],
   },
   {
-    title: 'Turbo Nest + Next Template',
+    title: 'System Metrics Visualization Dashboard',
     description:
-      'Monorepo starter with NestJS + Next.js, shared types, and turbo build pipeline.',
-    tech: ['TurboRepo', 'NestJS', 'Next.js', 'TypeScript'],
-    href: 'https://github.com/Hoanle396/turbo-nest-next-template',
-  },
-  {
-    title: 'Sushifarm Backend',
-    description:
-      'Yield farming & staking backend with smart contract maintenance in the SushiSwap ecosystem.',
-    tech: ['Go', 'Gin', 'Solidity', 'AWS', 'Docker'],
-    href: 'https://github.com/Hoanle396',
+      'Interactive dashboard for visualizing CPU, memory, disk, and network metrics using modern chart libraries.',
+    tech: ['React', 'Recharts', 'REST API'],
   },
 ];

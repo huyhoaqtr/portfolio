@@ -13,7 +13,7 @@ const nav = [
 export function Header() {
   return (
     <header className="pointer-events-none fixed inset-x-0 top-0 z-50 flex justify-center">
-      <div className='w-full max-w-6xl px-6'>
+      <div className='w-full max-w-7xl px-6'>
         <div className="header-container">
           <Link href="/" className="group relative flex items-center gap-2">
             <AppLogo />
