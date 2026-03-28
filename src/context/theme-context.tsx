@@ -9,13 +9,30 @@ interface ThemeContextValue {
 const ThemeContext = createContext<ThemeContextValue | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme] = useState<'light' | 'dark'>('dark');
+  const [theme, setTheme] = useState<'light' | 'dark'>('dark');
 
+  // Load từ localStorage
   useEffect(() => {
-    document.documentElement.classList.add('dark');
+    const saved = localStorage.getItem('theme') as 'light' | 'dark' | null;
+    if (saved) setTheme(saved);
   }, []);
 
-  const toggle = () => { };
+  // Apply class + save
+  useEffect(() => {
+    const root = document.documentElement;
+
+    if (theme === 'dark') {
+      root.classList.add('dark');
+    } else {
+      root.classList.remove('dark');
+    }
+
+    localStorage.setItem('theme', theme);
+  }, [theme]);
+
+  const toggle = () => {
+    setTheme(prev => (prev === 'dark' ? 'light' : 'dark'));
+  };
 
   return (
     <ThemeContext.Provider value={{ theme, toggle }}>

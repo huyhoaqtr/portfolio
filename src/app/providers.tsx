@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import { ThemeProvider } from '@/components/theme-provider';
+import { ThemeProvider } from '@/context/theme-context';
 import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
 import { ScrollProgress } from '@/components/scroll-progress';
