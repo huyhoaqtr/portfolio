@@ -17,27 +17,16 @@ export const Card = forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivEleme
   ({ className, ...props }, ref) => (
     <div
       ref={ref}
-      className={cn(
-        'group relative overflow-hidden rounded-2xl border border-zinc-800/80 bg-zinc-900/40 p-5 backdrop-blur-sm transition hover:border-blue-500/20 card-hover',
-        className,
-      )}
+      className={cn('panel card-hover group relative overflow-hidden p-5', className)}
       {...props}
     />
   ),
 );
 Card.displayName = 'Card';
 
-export const SectionTitle = ({
-  children,
-  sub,
-}: {
-  children: React.ReactNode;
-  sub?: string;
-}) => (
+export const SectionTitle = ({ children, sub }: { children: React.ReactNode; sub?: string }) => (
   <div className="mb-12">
-    <h2 className="text-2xl font-bold tracking-tight text-white md:text-3xl">
-      {children}
-    </h2>
-    {sub && <p className="mt-2 text-sm text-zinc-500">{sub}</p>}
+    <h2 className="text-2xl font-bold tracking-tight text-foreground md:text-3xl">{children}</h2>
+    {sub && <p className="mt-2 text-sm text-muted-foreground">{sub}</p>}
   </div>
 );

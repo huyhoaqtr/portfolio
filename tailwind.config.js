@@ -13,15 +13,23 @@ module.exports = {
         sans: ['var(--font-inter)'],
       },
       colors: {
-        bg: 'hsl(var(--bg))',
-        fg: 'hsl(var(--fg))',
+        background: 'hsl(var(--background) / <alpha-value>)',
+        foreground: 'hsl(var(--foreground) / <alpha-value>)',
+        muted: 'hsl(var(--muted) / <alpha-value>)',
+        'muted-foreground': 'hsl(var(--muted-foreground) / <alpha-value>)',
+        border: 'hsl(var(--border) / <alpha-value>)',
         surface: {
-          50: '#fafafa',
-          100: '#f4f4f5',
-          800: '#27272a',
-          900: '#18181b',
-          950: '#09090b',
+          DEFAULT: 'hsl(var(--surface) / <alpha-value>)',
+          strong: 'hsl(var(--surface-strong) / <alpha-value>)',
+          muted: 'hsl(var(--surface-muted) / <alpha-value>)',
         },
+        primary: {
+          DEFAULT: 'hsl(var(--primary) / <alpha-value>)',
+          foreground: 'hsl(var(--primary-foreground) / <alpha-value>)',
+          soft: 'hsl(var(--primary-soft) / <alpha-value>)',
+        },
+        ring: 'hsl(var(--ring) / <alpha-value>)',
+        success: 'hsl(var(--success) / <alpha-value>)',
       },
       keyframes: {
         'fade-in-up': {

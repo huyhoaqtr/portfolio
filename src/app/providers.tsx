@@ -12,21 +12,18 @@ const Background3D = dynamic(
   { ssr: false },
 );
 
-
 export default function Providers({ children }: { children: React.ReactNode }) {
   return (
     <ThemeProvider>
       <AppProvider>
-        <body className="min-h-screen bg-[#09090b] selection:bg-blue-500/30 selection:text-white">
-          <Background3D />
-          <div className="relative z-10">
-            <ScrollProgress />
-            <Header />
-            {children}
-            <Footer />
-            <WidgetGroup />
-          </div>
-        </body>
+        <Background3D />
+        <div className="relative z-10">
+          <ScrollProgress />
+          <Header />
+          {children}
+          <Footer />
+          <WidgetGroup />
+        </div>
       </AppProvider>
     </ThemeProvider>
   );

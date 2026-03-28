@@ -6,6 +6,17 @@ import Providers from './providers';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 const sora = Sora({ subsets: ['latin'], variable: '--font-sora' });
+const themeScript = `
+  (() => {
+    try {
+      const stored = localStorage.getItem('theme');
+      const theme = stored === 'light' || stored === 'dark' ? stored : 'dark';
+      const root = document.documentElement;
+      root.classList.toggle('dark', theme === 'dark');
+      root.style.colorScheme = theme;
+    } catch (_) {}
+  })();
+`;
 
 export const metadata: Metadata = {
   title: siteConfig.name,
@@ -27,9 +38,13 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning className={`${inter.variable} ${sora.variable}` }>
-      <head />
+    <html lang="en" suppressHydrationWarning className={`${inter.variable} ${sora.variable} dark`}>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+      </head>
+      <body className="min-h-screen bg-background text-foreground">
         <Providers>{children}</Providers>
+      </body>
     </html>
   );
 }

@@ -20,9 +20,9 @@ export function Header() {
           </Link>
 
           <div className="flex items-center gap-6">
-            <nav className="hidden gap-6 text-[13px] font-medium text-zinc-500 md:flex">
+            <nav className="hidden gap-6 text-[13px] font-medium text-muted-foreground md:flex">
               {nav.map((i) => (
-                <Link key={i.href} href={i.href} className="hover:text-blue-400">
+                <Link key={i.href} href={i.href} className="hover:text-primary">
                   {i.label}
                 </Link>
               ))}

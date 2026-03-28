@@ -10,10 +10,5 @@ export function ScrollProgress() {
     setMounted(true);
   }, []);
   if (!mounted) return null;
-  return (
-    <motion.div
-      className="scroll-progress-bar bg-blue-500 origin-left"
-      style={{ scaleX }}
-    />
-  );
+  return <motion.div className="scroll-progress-bar origin-left bg-primary" style={{ scaleX }} />;
 }

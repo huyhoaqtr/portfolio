@@ -20,7 +20,7 @@ const markdownComponents: Components = {
     if (inline) {
       return (
         <code
-          className="rounded bg-zinc-200 px-1 py-0.5 text-[11px] dark:bg-zinc-700"
+          className="rounded bg-surface-muted px-1 py-0.5 text-[11px] text-foreground"
           {...rest}
         >
           {children}
@@ -29,7 +29,7 @@ const markdownComponents: Components = {
     }
     return (
       <pre
-        className="mt-2 max-h-52 overflow-auto rounded-md bg-zinc-900 p-3 text-[11px] text-white dark:bg-zinc-800"
+        className="mt-2 max-h-52 overflow-auto rounded-md border border-border/70 bg-surface-strong p-3 text-[11px] text-foreground"
         data-lang={lang}
         {...rest}
       >
@@ -43,7 +43,7 @@ const markdownComponents: Components = {
         href={href}
         target="_blank"
         rel="noopener noreferrer"
-        className="underline decoration-dotted underline-offset-2 hover:text-blue-400"
+        className="underline decoration-dotted underline-offset-2 hover:text-primary"
         {...props}
       >
         {children}
@@ -66,7 +66,7 @@ const markdownComponents: Components = {
   },
   strong({ children, ...props }) {
     return (
-      <strong className="font-semibold text-zinc-900 dark:text-white" {...props}>
+      <strong className="font-semibold text-foreground" {...props}>
         {children}
       </strong>
     );
@@ -82,12 +82,12 @@ const markdownComponents: Components = {
 
 function TypingIndicator() {
   return (
-    <div className="mr-auto flex items-center gap-2 rounded-lg bg-zinc-100 px-3 py-2 text-xs text-zinc-500 dark:bg-zinc-800 dark:text-zinc-400">
+    <div className="mr-auto flex items-center gap-2 rounded-lg bg-surface-strong px-3 py-2 text-xs text-muted-foreground">
       <span>Thinking</span>
       <span className="inline-flex gap-1">
-        <span className="h-1 w-1 animate-bounce rounded-full bg-blue-500 [animation-delay:0ms]" />
-        <span className="h-1 w-1 animate-bounce rounded-full bg-blue-500 [animation-delay:120ms]" />
-        <span className="h-1 w-1 animate-bounce rounded-full bg-blue-500 [animation-delay:240ms]" />
+        <span className="h-1 w-1 animate-bounce rounded-full bg-primary [animation-delay:0ms]" />
+        <span className="h-1 w-1 animate-bounce rounded-full bg-primary [animation-delay:120ms]" />
+        <span className="h-1 w-1 animate-bounce rounded-full bg-primary [animation-delay:240ms]" />
       </span>
     </div>
   );
@@ -172,12 +172,11 @@ export function ChatWidget() {
       <button
         onClick={() => setOpen((o) => !o)}
         aria-label={open ? 'Close chat assistant' : 'Open chat assistant'}
-        className="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-500/50 border border-blue-600 text-white shadow-lg shadow-blue-500/20 transition hover:bg-blue-600/75 hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
+        className="button-primary h-12 w-12 p-0 hover:scale-105 flex items-center justify-center"
       >
         <span className="relative z-10 font-semibold tracking-wide select-none">
-          {open ? '✕' : <ChatBotIcon className='w-9 h-9' />}
+          {open ? '✕' : <ChatBotIcon className="w-9 h-9" />}
         </span>
-
       </button>
       <AnimatePresence>
         {open && (
@@ -186,13 +185,13 @@ export function ChatWidget() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
             transition={{ type: 'spring', stiffness: 260, damping: 24 }}
-            className="fixed bottom-24 right-5 z-50 flex w-80 flex-col overflow-hidden rounded-xl border border-zinc-200 bg-white/95 backdrop-blur-lg dark:border-zinc-800 dark:bg-zinc-900/50"
+            className="fixed bottom-24 right-5 z-50 flex w-80 flex-col overflow-hidden rounded-xl border border-border/80 bg-background/95 shadow-[0_24px_60px_-36px_hsl(var(--foreground)/0.45)] backdrop-blur-lg"
           >
-            <div className="flex items-center justify-between border-b border-zinc-100 px-4 py-2 text-xs font-medium tracking-wide text-zinc-500 dark:border-zinc-800 dark:text-zinc-400">
+            <div className="flex items-center justify-between border-b border-border/80 px-4 py-2 text-xs font-medium tracking-wide text-muted-foreground">
               <span>AI Assistant</span>
               <button
                 onClick={() => setMessages((m) => m.slice(0, 1))}
-                className="rounded px-2 py-0.5 text-[10px] uppercase tracking-wide text-zinc-400 transition hover:bg-zinc-100 dark:hover:bg-zinc-800"
+                className="rounded px-2 py-0.5 text-[10px] uppercase tracking-wide text-muted-foreground transition hover:bg-surface-strong hover:text-foreground"
               >
                 Reset
               </button>
@@ -203,9 +202,9 @@ export function ChatWidget() {
             >
               {messages.map((m, i) => {
                 const baseUser =
-                  'ml-auto max-w-[85%] rounded-lg bg-blue-500 px-3 py-2 text-white shadow text-xs whitespace-pre-wrap';
+                  'ml-auto max-w-[85%] rounded-lg bg-primary px-3 py-2 text-xs whitespace-pre-wrap text-primary-foreground shadow shadow-primary/20';
                 const baseAssistant =
-                  'mr-auto max-w-[90%] rounded-lg bg-zinc-100 px-3 py-2 text-[13px] leading-relaxed text-zinc-700 dark:bg-zinc-800 dark:text-zinc-200';
+                  'mr-auto max-w-[90%] rounded-lg bg-surface-strong px-3 py-2 text-[13px] leading-relaxed text-foreground';
                 return (
                   <div key={i} className={m.role === 'user' ? baseUser : baseAssistant}>
                     {m.role === 'assistant' ? (
@@ -225,7 +224,7 @@ export function ChatWidget() {
                 e.preventDefault();
                 submit();
               }}
-              className="border-t border-zinc-100 p-2 dark:border-zinc-800"
+              className="border-t border-border/80 p-2"
             >
               <div className="flex items-end gap-2">
                 <textarea
@@ -234,12 +233,12 @@ export function ChatWidget() {
                   onChange={(e) => setInput(e.target.value)}
                   onKeyDown={onKey}
                   placeholder="Ask about anything..."
-                  className="max-h-24 flex-1 resize-none rounded-md border border-zinc-200 bg-white px-2 py-2 text-xs text-zinc-700 outline-none ring-blue-400 focus:ring-1 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-200"
+                  className="max-h-24 flex-1 resize-none rounded-md border border-border bg-surface px-2 py-2 text-xs text-foreground outline-none placeholder:text-muted-foreground focus:ring-1 focus:ring-ring/40"
                 />
                 <button
                   type="submit"
                   disabled={!input.trim() || loading}
-                  className="rounded-md bg-blue-500 px-3 py-2 text-xs font-medium text-white shadow transition hover:bg-blue-600 disabled:opacity-40"
+                  className="rounded-md bg-primary px-3 py-2 text-xs font-medium text-primary-foreground shadow shadow-primary/20 transition hover:bg-primary/90 disabled:opacity-40"
                 >
                   <Send size={18} />
                 </button>
