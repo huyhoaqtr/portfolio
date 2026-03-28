@@ -64,6 +64,18 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       locale: localeForOg,
       type: 'website',
     },
+    verification: {
+      google: '-1cxTIC65HJVR0KJliG40TteKEMdnAlM55NvMGAj3Fo',
+    },
+    other: {
+      'script:ld+json': JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'Person',
+        name: 'Huy Hoang',
+        jobTitle: 'Software Engineer',
+        url: siteConfig.url,
+      }),
+    },
   };
 }
 
