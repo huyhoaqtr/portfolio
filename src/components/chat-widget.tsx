@@ -4,8 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import type { Components } from 'react-markdown';
-import { Send } from 'lucide-react';
-import ChatBotIcon from '@/components/icons/bot-icon';
+import { BotIcon, Send } from 'lucide-react';
 
 interface ChatMessage {
   role: 'user' | 'assistant';
@@ -175,7 +174,7 @@ export function ChatWidget() {
         className="button-primary h-12 w-12 p-0 hover:scale-105 flex items-center justify-center"
       >
         <span className="relative z-10 font-semibold tracking-wide select-none">
-          {open ? '✕' : <ChatBotIcon className="w-9 h-9" />}
+          {open ? '✕' : <BotIcon />}
         </span>
       </button>
       <AnimatePresence>

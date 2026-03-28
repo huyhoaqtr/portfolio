@@ -1,6 +1,20 @@
 import { Renderer, Program, Mesh, Color, Triangle } from 'ogl';
 import { useEffect, useRef } from 'react';
 
+type GalaxyRuntimeSettings = {
+  starSpeed: number;
+  density: number;
+  hueShift: number;
+  speed: number;
+  glowIntensity: number;
+  saturation: number;
+  twinkleIntensity: number;
+  rotationSpeed: number;
+  repulsionStrength: number;
+  autoCenterRepulsion: number;
+  backgroundMix: number;
+};
+
 const vertexShader = `
 attribute vec2 uv;
 attribute vec2 position;
@@ -33,6 +47,7 @@ uniform float uRotationSpeed;
 uniform float uRepulsionStrength;
 uniform float uMouseActiveFactor;
 uniform float uAutoCenterRepulsion;
+uniform float uBackgroundMix;
 uniform bool uTransparent;
 
 varying vec2 vUv;
@@ -156,6 +171,8 @@ void main() {
     col += StarLayer(uv * scale + i * 453.32) * fade;
   }
 
+  col *= uBackgroundMix;
+
   if (uTransparent) {
     float alpha = length(col);
     alpha = smoothstep(0.0, 0.3, alpha);
@@ -184,6 +201,50 @@ interface GalaxyProps {
   repulsionStrength?: number;
   autoCenterRepulsion?: number;
   transparent?: boolean;
+  backgroundMix?: number;
+}
+
+function createRuntimeSettings({
+  starSpeed,
+  density,
+  hueShift,
+  speed,
+  glowIntensity,
+  saturation,
+  twinkleIntensity,
+  rotationSpeed,
+  repulsionStrength,
+  autoCenterRepulsion,
+  backgroundMix,
+}: Required<
+  Pick<
+    GalaxyProps,
+    | 'starSpeed'
+    | 'density'
+    | 'hueShift'
+    | 'speed'
+    | 'glowIntensity'
+    | 'saturation'
+    | 'twinkleIntensity'
+    | 'rotationSpeed'
+    | 'repulsionStrength'
+    | 'autoCenterRepulsion'
+    | 'backgroundMix'
+  >
+>): GalaxyRuntimeSettings {
+  return {
+    starSpeed,
+    density,
+    hueShift,
+    speed,
+    glowIntensity,
+    saturation,
+    twinkleIntensity,
+    rotationSpeed,
+    repulsionStrength,
+    autoCenterRepulsion,
+    backgroundMix,
+  };
 }
 
 export default function Galaxy({
@@ -203,6 +264,7 @@ export default function Galaxy({
   rotationSpeed = 0.1,
   autoCenterRepulsion = 0,
   transparent = true,
+  backgroundMix = 1,
   ...rest
 }: GalaxyProps) {
   const ctnDom = useRef<HTMLDivElement>(null);
@@ -210,13 +272,84 @@ export default function Galaxy({
   const smoothMousePos = useRef({ x: 0.5, y: 0.5 });
   const targetMouseActive = useRef(0.0);
   const smoothMouseActive = useRef(0.0);
+  const focalRef = useRef(focal);
+  const rotationRef = useRef(rotation);
+  const mouseRepulsionRef = useRef(mouseRepulsion);
+  const programRef = useRef<Program | null>(null);
+  const disableAnimationRef = useRef(disableAnimation);
+  const targetSettingsRef = useRef(
+    createRuntimeSettings({
+      starSpeed,
+      density,
+      hueShift,
+      speed,
+      glowIntensity,
+      saturation,
+      twinkleIntensity,
+      rotationSpeed,
+      repulsionStrength,
+      autoCenterRepulsion,
+      backgroundMix,
+    }),
+  );
+  const currentSettingsRef = useRef(targetSettingsRef.current);
+
+  useEffect(() => {
+    disableAnimationRef.current = disableAnimation;
+  }, [disableAnimation]);
+
+  useEffect(() => {
+    targetSettingsRef.current = createRuntimeSettings({
+      starSpeed,
+      density,
+      hueShift,
+      speed,
+      glowIntensity,
+      saturation,
+      twinkleIntensity,
+      rotationSpeed,
+      repulsionStrength,
+      autoCenterRepulsion,
+      backgroundMix,
+    });
+  }, [
+    starSpeed,
+    density,
+    hueShift,
+    speed,
+    glowIntensity,
+    saturation,
+    twinkleIntensity,
+    rotationSpeed,
+    repulsionStrength,
+    autoCenterRepulsion,
+    backgroundMix,
+  ]);
+
+  useEffect(() => {
+    focalRef.current = focal;
+    if (!programRef.current) return;
+    programRef.current.uniforms.uFocal.value = new Float32Array(focal);
+  }, [focal]);
+
+  useEffect(() => {
+    rotationRef.current = rotation;
+    if (!programRef.current) return;
+    programRef.current.uniforms.uRotation.value = new Float32Array(rotation);
+  }, [rotation]);
+
+  useEffect(() => {
+    mouseRepulsionRef.current = mouseRepulsion;
+    if (!programRef.current) return;
+    programRef.current.uniforms.uMouseRepulsion.value = mouseRepulsion;
+  }, [mouseRepulsion]);
 
   useEffect(() => {
     if (!ctnDom.current) return;
     const ctn = ctnDom.current;
     const renderer = new Renderer({
       alpha: transparent,
-      premultipliedAlpha: false
+      premultipliedAlpha: false,
     });
     const gl = renderer.gl;
 
@@ -237,7 +370,7 @@ export default function Galaxy({
         program.uniforms.uResolution.value = new Color(
           gl.canvas.width,
           gl.canvas.height,
-          gl.canvas.width / gl.canvas.height
+          gl.canvas.width / gl.canvas.height,
         );
       }
     }
@@ -245,50 +378,94 @@ export default function Galaxy({
     resize();
 
     const geometry = new Triangle(gl);
+    const initialSettings = currentSettingsRef.current;
     program = new Program(gl, {
       vertex: vertexShader,
       fragment: fragmentShader,
       uniforms: {
         uTime: { value: 0 },
         uResolution: {
-          value: new Color(gl.canvas.width, gl.canvas.height, gl.canvas.width / gl.canvas.height)
+          value: new Color(gl.canvas.width, gl.canvas.height, gl.canvas.width / gl.canvas.height),
         },
-        uFocal: { value: new Float32Array(focal) },
-        uRotation: { value: new Float32Array(rotation) },
-        uStarSpeed: { value: starSpeed },
-        uDensity: { value: density },
-        uHueShift: { value: hueShift },
-        uSpeed: { value: speed },
+        uFocal: { value: new Float32Array(focalRef.current) },
+        uRotation: { value: new Float32Array(rotationRef.current) },
+        uStarSpeed: { value: initialSettings.starSpeed },
+        uDensity: { value: initialSettings.density },
+        uHueShift: { value: initialSettings.hueShift },
+        uSpeed: { value: initialSettings.speed },
         uMouse: {
-          value: new Float32Array([smoothMousePos.current.x, smoothMousePos.current.y])
+          value: new Float32Array([smoothMousePos.current.x, smoothMousePos.current.y]),
         },
-        uGlowIntensity: { value: glowIntensity },
-        uSaturation: { value: saturation },
-        uMouseRepulsion: { value: mouseRepulsion },
-        uTwinkleIntensity: { value: twinkleIntensity },
-        uRotationSpeed: { value: rotationSpeed },
-        uRepulsionStrength: { value: repulsionStrength },
+        uGlowIntensity: { value: initialSettings.glowIntensity },
+        uSaturation: { value: initialSettings.saturation },
+        uMouseRepulsion: { value: mouseRepulsionRef.current },
+        uTwinkleIntensity: { value: initialSettings.twinkleIntensity },
+        uRotationSpeed: { value: initialSettings.rotationSpeed },
+        uRepulsionStrength: { value: initialSettings.repulsionStrength },
         uMouseActiveFactor: { value: 0.0 },
-        uAutoCenterRepulsion: { value: autoCenterRepulsion },
-        uTransparent: { value: transparent }
-      }
+        uAutoCenterRepulsion: { value: initialSettings.autoCenterRepulsion },
+        uBackgroundMix: { value: initialSettings.backgroundMix },
+        uTransparent: { value: transparent },
+      },
     });
+    programRef.current = program;
 
     const mesh = new Mesh(gl, { geometry, program });
     let animateId: number;
 
     function update(t: number) {
       animateId = requestAnimationFrame(update);
-      if (!disableAnimation) {
+      const nextSettings = targetSettingsRef.current;
+      const currentSettings = currentSettingsRef.current;
+      const uniformLerpFactor = 0.035;
+
+      currentSettings.starSpeed +=
+        (nextSettings.starSpeed - currentSettings.starSpeed) * uniformLerpFactor;
+      currentSettings.density +=
+        (nextSettings.density - currentSettings.density) * uniformLerpFactor;
+      currentSettings.hueShift +=
+        (nextSettings.hueShift - currentSettings.hueShift) * uniformLerpFactor;
+      currentSettings.speed += (nextSettings.speed - currentSettings.speed) * uniformLerpFactor;
+      currentSettings.glowIntensity +=
+        (nextSettings.glowIntensity - currentSettings.glowIntensity) * uniformLerpFactor;
+      currentSettings.saturation +=
+        (nextSettings.saturation - currentSettings.saturation) * uniformLerpFactor;
+      currentSettings.twinkleIntensity +=
+        (nextSettings.twinkleIntensity - currentSettings.twinkleIntensity) * uniformLerpFactor;
+      currentSettings.rotationSpeed +=
+        (nextSettings.rotationSpeed - currentSettings.rotationSpeed) * uniformLerpFactor;
+      currentSettings.repulsionStrength +=
+        (nextSettings.repulsionStrength - currentSettings.repulsionStrength) * uniformLerpFactor;
+      currentSettings.autoCenterRepulsion +=
+        (nextSettings.autoCenterRepulsion - currentSettings.autoCenterRepulsion) *
+        uniformLerpFactor;
+      currentSettings.backgroundMix +=
+        (nextSettings.backgroundMix - currentSettings.backgroundMix) * uniformLerpFactor;
+
+      if (!disableAnimationRef.current) {
         program.uniforms.uTime.value = t * 0.001;
-        program.uniforms.uStarSpeed.value = (t * 0.001 * starSpeed) / 10.0;
+        program.uniforms.uStarSpeed.value = (t * 0.001 * currentSettings.starSpeed) / 10.0;
       }
 
-      const lerpFactor = 0.05;
-      smoothMousePos.current.x += (targetMousePos.current.x - smoothMousePos.current.x) * lerpFactor;
-      smoothMousePos.current.y += (targetMousePos.current.y - smoothMousePos.current.y) * lerpFactor;
+      program.uniforms.uDensity.value = currentSettings.density;
+      program.uniforms.uHueShift.value = currentSettings.hueShift;
+      program.uniforms.uSpeed.value = currentSettings.speed;
+      program.uniforms.uGlowIntensity.value = currentSettings.glowIntensity;
+      program.uniforms.uSaturation.value = currentSettings.saturation;
+      program.uniforms.uTwinkleIntensity.value = currentSettings.twinkleIntensity;
+      program.uniforms.uRotationSpeed.value = currentSettings.rotationSpeed;
+      program.uniforms.uRepulsionStrength.value = currentSettings.repulsionStrength;
+      program.uniforms.uAutoCenterRepulsion.value = currentSettings.autoCenterRepulsion;
+      program.uniforms.uBackgroundMix.value = currentSettings.backgroundMix;
 
-      smoothMouseActive.current += (targetMouseActive.current - smoothMouseActive.current) * lerpFactor;
+      const lerpFactor = 0.05;
+      smoothMousePos.current.x +=
+        (targetMousePos.current.x - smoothMousePos.current.x) * lerpFactor;
+      smoothMousePos.current.y +=
+        (targetMousePos.current.y - smoothMousePos.current.y) * lerpFactor;
+
+      smoothMouseActive.current +=
+        (targetMouseActive.current - smoothMouseActive.current) * lerpFactor;
 
       program.uniforms.uMouse.value[0] = smoothMousePos.current.x;
       program.uniforms.uMouse.value[1] = smoothMousePos.current.y;
@@ -318,6 +495,7 @@ export default function Galaxy({
 
     return () => {
       cancelAnimationFrame(animateId);
+      programRef.current = null;
       window.removeEventListener('resize', resize);
       if (mouseInteraction) {
         ctn.removeEventListener('mousemove', handleMouseMove);
@@ -326,24 +504,7 @@ export default function Galaxy({
       ctn.removeChild(gl.canvas);
       gl.getExtension('WEBGL_lose_context')?.loseContext();
     };
-  }, [
-    focal,
-    rotation,
-    starSpeed,
-    density,
-    hueShift,
-    disableAnimation,
-    speed,
-    mouseInteraction,
-    glowIntensity,
-    saturation,
-    mouseRepulsion,
-    twinkleIntensity,
-    rotationSpeed,
-    repulsionStrength,
-    autoCenterRepulsion,
-    transparent
-  ]);
+  }, [mouseInteraction, transparent]);
 
   return <div ref={ctnDom} className="galaxy-container" {...rest} />;
 }

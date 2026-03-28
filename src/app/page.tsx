@@ -144,7 +144,7 @@ function WhatIDo() {
     {
       icon: <Terminal size={22} />,
       title: 'Backend & System Design',
-      desc: 'Designing scalable APIs, handling real-time data, and building reliable backend systems with PostgreSQL and message-driven architecture.',
+      desc: 'Building scalable APIs and reliable backend systems with PostgreSQL and real-time data.',
     },
     {
       icon: <Zap size={22} />,
