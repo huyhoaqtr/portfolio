@@ -172,12 +172,12 @@ export function ChatWidget() {
       <button
         onClick={() => setOpen((o) => !o)}
         aria-label={open ? 'Close chat assistant' : 'Open chat assistant'}
-        className="fixed bottom-5 right-5 z-50 flex h-12 w-12 items-center justify-center rounded-xl bg-blue-500/50 border border-blue-600 text-white shadow-lg shadow-blue-500/20 transition hover:bg-blue-600/75 hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
+        className="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-500/50 border border-blue-600 text-white shadow-lg shadow-blue-500/20 transition hover:bg-blue-600/75 hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
       >
         <span className="relative z-10 font-semibold tracking-wide select-none">
-          {open ? '✕' : <ChatBotIcon  className='w-9 h-9'/>}
+          {open ? '✕' : <ChatBotIcon className='w-9 h-9' />}
         </span>
- 
+
       </button>
       <AnimatePresence>
         {open && (
