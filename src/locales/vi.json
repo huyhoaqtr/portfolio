@@ -1,4 +1,8 @@
 {
+  "metadata": {
+    "title": "Huy Hoang - Kỹ sư phần mềm",
+    "description": "Lập trình viên full-stack xây dựng ứng dụng web có khả năng mở rộng với Node.js, NestJS, Next.js, React, .NET và Docker."
+  },
   "common": {
     "name": "Huy Hoang",
     "responseLanguage": "tiếng Việt",
@@ -80,157 +84,124 @@
       "intro": "Tôi là {name} — một kỹ sư phần mềm xây dựng các ứng dụng web hiệu năng cao, có khả năng mở rộng ở cả frontend và backend, tập trung vào kiến trúc sạch và công nghệ hiện đại."
     },
     "services": {
-      "title": "Tôi Làm Gì",
+      "title": "Tôi làm gì",
       "subtitle": "Những gì tôi tập trung và cách tôi xây dựng hệ thống",
-      "items": [
-        {
+      "items": {
+        "fullstack": {
           "title": "Phát triển web full-stack",
           "description": "Xây dựng ứng dụng web hiện đại với React, Next.js và .NET / Node.js, tập trung vào hiệu năng và kiến trúc sạch."
         },
-        {
+        "backend": {
           "title": "Backend & thiết kế hệ thống",
           "description": "Xây dựng API có khả năng mở rộng và hệ thống backend đáng tin cậy với PostgreSQL và dữ liệu thời gian thực."
         },
-        {
+        "observability": {
           "title": "Monitoring & quan sát hệ thống",
           "description": "Phát triển hệ thống giám sát với Prometheus, Grafana và dashboard tùy chỉnh để theo dõi và cảnh báo thời gian thực."
         },
-        {
+        "devops": {
           "title": "DevOps & hạ tầng",
           "description": "Triển khai và vận hành ứng dụng với Docker, pipeline CI/CD và môi trường cloud."
         }
-      ]
+      }
     },
     "projects": {
       "title": "Dự án",
       "subtitle": "Một số sản phẩm tôi đã xây dựng và hoàn thiện",
       "featuredLabel": "Nổi bật",
-      "items": [
-        {
+      "items": {
+        "aiLogMonitoring": {
           "title": "Hệ thống giám sát log bằng AI",
-          "description": "Hệ thống giám sát log thời gian thực với phát hiện bất thường, cảnh báo và dashboard trực quan. Được thiết kế để xử lý dữ liệu syslog và tạo insight bằng AI.",
-          "tech": ["Next.js", "NestJS", "PostgreSQL", "Prometheus", "Grafana", "Docker"],
-          "featured": true
+          "description": "Hệ thống giám sát log thời gian thực với phát hiện bất thường, cảnh báo và dashboard trực quan. Được thiết kế để xử lý dữ liệu syslog và tạo insight bằng AI."
         },
-        {
+        "networkMonitoring": {
           "title": "Nền tảng giám sát mạng",
-          "description": "Nền tảng full-stack để theo dõi sức khỏe server, port, process và metric hệ thống với cảnh báo thời gian thực và ngưỡng tùy chỉnh.",
-          "tech": ["React", "Node.js", "Prometheus", "Node Exporter", "Recharts"],
-          "featured": true
+          "description": "Nền tảng full-stack để theo dõi sức khỏe server, port, process và metric hệ thống với cảnh báo thời gian thực và ngưỡng tùy chỉnh."
         },
-        {
+        "librenmsDashboard": {
           "title": "Dashboard tùy biến cho LibreNMS",
-          "description": "Tùy biến giao diện LibreNMS với UI/UX tốt hơn, tính năng tìm kiếm nâng cao và tích hợp xác thực SSO.",
-          "tech": ["PHP", "Laravel", "Alpine.js", "MySQL"]
+          "description": "Tùy biến giao diện LibreNMS với UI/UX tốt hơn, tính năng tìm kiếm nâng cao và tích hợp xác thực SSO."
         },
-        {
+        "mqttAlarm": {
           "title": "Hệ thống xử lý cảnh báo MQTT",
-          "description": "Hệ thống xử lý dữ liệu cảnh báo MQTT thời gian thực, ánh xạ định nghĩa lỗi và lưu trữ cảnh báo có cấu trúc cho ứng dụng monitoring.",
-          "tech": ["Node.js", "MQTT", "Redis", "PostgreSQL"]
+          "description": "Hệ thống xử lý dữ liệu cảnh báo MQTT thời gian thực, ánh xạ định nghĩa lỗi và lưu trữ cảnh báo có cấu trúc cho ứng dụng monitoring."
         },
-        {
+        "reusableUi": {
           "title": "Bộ UI component tái sử dụng cho React",
-          "description": "Tập hợp các UI component tái sử dụng như Tree View, bảng và dashboard được xây dựng theo các design system hiện đại.",
-          "tech": ["React", "TypeScript", "Tailwind", "shadcn/ui"]
+          "description": "Tập hợp các UI component tái sử dụng như tree view, bảng và dashboard được xây dựng theo các design system hiện đại."
         },
-        {
+        "authSystem": {
           "title": "Hệ thống xác thực với JWT & Refresh Token",
-          "description": "Hệ thống xác thực an toàn với access/refresh token, lưu trữ bằng cookie và tự động làm mới token.",
-          "tech": [".NET Core", "PostgreSQL", "JWT"]
+          "description": "Hệ thống xác thực an toàn với access và refresh token, lưu trữ bằng cookie và tự động làm mới token."
         },
-        {
+        "metricsDashboard": {
           "title": "Dashboard trực quan hóa metric hệ thống",
-          "description": "Dashboard tương tác để trực quan CPU, bộ nhớ, ổ đĩa và metric mạng bằng thư viện chart hiện đại.",
-          "tech": ["React", "Recharts", "REST API"]
+          "description": "Dashboard tương tác để trực quan CPU, bộ nhớ, ổ đĩa và metric mạng bằng thư viện chart hiện đại."
         }
-      ]
+      }
     },
     "experience": {
       "title": "Kinh nghiệm",
       "subtitle": "Hành trình làm việc của tôi đến hiện tại",
-      "items": [
-        {
+      "items": {
+        "selfProject": {
           "company": "Dự án tự khởi xướng",
           "role": "Kỹ sư Full-stack",
-          "period": "2025 – Hiện tại",
-          "achievements": [
-            "Xây dựng hệ thống giám sát thời gian thực với cảnh báo và dashboard trực quan",
-            "Thiết kế dịch vụ backend có khả năng mở rộng và kiến trúc API",
-            "Triển khai dashboard frontend với các UI component hiện đại"
-          ]
+          "period": "2025 - Hiện tại",
+          "achievement1": "Xây dựng hệ thống giám sát thời gian thực với cảnh báo và dashboard trực quan",
+          "achievement2": "Thiết kế dịch vụ backend có khả năng mở rộng và kiến trúc API",
+          "achievement3": "Triển khai dashboard frontend với các UI component hiện đại"
         },
-        {
+        "upcomingBackend": {
           "company": "Dự án sắp triển khai",
           "role": "Kỹ sư Backend",
           "period": "2025",
-          "achievements": [
-            "Thiết kế hệ thống xử lý luồng dữ liệu thời gian thực và kiến trúc hướng sự kiện",
-            "Lên kế hoạch tích hợp giao thức nhắn tin và chiến lược caching"
-          ]
+          "achievement1": "Thiết kế hệ thống xử lý luồng dữ liệu thời gian thực và kiến trúc hướng sự kiện",
+          "achievement2": "Lên kế hoạch tích hợp giao thức nhắn tin và chiến lược caching"
         },
-        {
+        "upcomingFrontend": {
           "company": "Dự án sắp triển khai",
           "role": "Kỹ sư Frontend",
           "period": "2025",
-          "achievements": [
-            "Phát triển UI component tái sử dụng và giao diện dashboard",
-            "Tập trung vào tối ưu hiệu năng và cải thiện trải nghiệm người dùng"
-          ]
+          "achievement1": "Phát triển UI component tái sử dụng và giao diện dashboard",
+          "achievement2": "Tập trung vào tối ưu hiệu năng và cải thiện trải nghiệm người dùng"
         }
-      ]
+      }
     },
     "skills": {
       "title": "Công nghệ",
       "subtitle": "Những công nghệ và công cụ tôi sử dụng hằng ngày",
-      "groups": [
-        {
-          "category": "Ngôn ngữ",
-          "skills": ["TypeScript", "JavaScript", "C#", "PHP", "SQL"]
+      "groups": {
+        "languages": {
+          "category": "Ngôn ngữ"
         },
-        {
-          "category": "Frontend",
-          "skills": [
-            "React",
-            "Next.js",
-            "Antd",
-            "Material UI",
-            "TailwindCSS",
-            "Recharts",
-            "TanStack",
-            "Redux",
-            "Zustand"
-          ]
+        "frontend": {
+          "category": "Frontend"
         },
-        {
-          "category": "Backend",
-          "skills": ["Node.js", "NestJS", ".NET Core", "REST API", "Laravel"]
+        "backend": {
+          "category": "Backend"
         },
-        {
-          "category": "Cơ sở dữ liệu",
-          "skills": ["PostgreSQL", "MySQL", "Redis", "MongoDB"]
+        "databases": {
+          "category": "Cơ sở dữ liệu"
         },
-        {
-          "category": "DevOps",
-          "skills": ["Docker", "GitLab CI", "CI/CD", "AWS", "Linux"]
+        "devops": {
+          "category": "DevOps"
         },
-        {
-          "category": "Kiểm thử",
-          "skills": ["Unit Testing", "Integration Testing", "E2E Testing"]
+        "testing": {
+          "category": "Kiểm thử"
         }
-      ]
+      }
     },
     "education": {
       "title": "Học vấn",
-      "items": [
-        {
+      "items": {
+        "university": {
           "school": "Đại học Đà Nẵng",
           "degree": "Kỹ thuật phần mềm",
-          "period": "—",
-          "details": [
-            "Các môn học tiêu biểu: Kiến trúc phần mềm, Hệ thống phân tán, Hệ cơ sở dữ liệu, Thuật toán"
-          ]
+          "period": "-",
+          "detail1": "Các môn học tiêu biểu: Kiến trúc phần mềm, Hệ thống phân tán, Hệ cơ sở dữ liệu, Thuật toán"
         }
-      ]
+      }
     },
     "contact": {
       "titleStart": "Hãy cùng xây dựng điều gì đó",

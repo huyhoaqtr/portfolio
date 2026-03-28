@@ -1,5 +1,5 @@
 'use client';
-import { useTranslations } from '@/context/locale-context';
+import { useTranslations } from 'next-intl';
 
 export default function AppLogo() {
   const t = useTranslations('logo');

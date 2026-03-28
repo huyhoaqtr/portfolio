@@ -6,7 +6,7 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import type { Components } from 'react-markdown';
 import { BotIcon, Send } from 'lucide-react';
-import { useLocale, useTranslations } from '@/context/locale-context';
+import { useLocale, useTranslations } from 'next-intl';
 
 interface ChatMessage {
   role: 'user' | 'assistant';
@@ -99,7 +99,7 @@ function TypingIndicator() {
 }
 
 export function ChatWidget() {
-  const { locale } = useLocale();
+  const locale = useLocale();
   const t = useTranslations();
   const welcomeMessage = t('chat.welcome');
   const [open, setOpen] = useState(false);

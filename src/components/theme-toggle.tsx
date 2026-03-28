@@ -1,5 +1,5 @@
 'use client';
-import { useTranslations } from '@/context/locale-context';
+import { useTranslations } from 'next-intl';
 import { useTheme } from '@/context/theme-context';
 import { Sun, Moon } from 'lucide-react';
 import { useEffect, useState } from 'react';

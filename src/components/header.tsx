@@ -1,6 +1,7 @@
 'use client';
-import Link from 'next/link';
-import { useTranslations } from '@/context/locale-context';
+import NextLink from 'next/link';
+import { useTranslations } from 'next-intl';
+import { Link } from '@/i18n/navigation';
 import AppLogo from '@/components/logo';
 import { ThemeToggle } from '@/components/theme-toggle';
 import { LanguageToggle } from '@/components/language-toggle';
@@ -24,9 +25,9 @@ export function Header() {
           <div className="flex items-center gap-6">
             <nav className="hidden gap-6 text-[13px] font-medium text-muted-foreground md:flex">
               {nav.map((i) => (
-                <Link key={i.href} href={i.href} className="hover:text-primary">
+                <NextLink key={i.href} href={i.href} className="hover:text-primary">
                   {i.label}
-                </Link>
+                </NextLink>
               ))}
             </nav>
 
