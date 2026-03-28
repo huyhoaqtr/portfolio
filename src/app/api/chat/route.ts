@@ -1,6 +1,5 @@
 import { NextRequest } from 'next/server';
 import { hasLocale } from 'next-intl';
-import { getTranslations } from 'next-intl/server';
 import { siteConfig } from '@/config/site';
 import { routing } from '@/i18n/routing';
 
@@ -48,6 +47,24 @@ interface LocaleMessages {
   };
 }
 
+function getValue(obj: any, path: string) {
+  return path.split('.').reduce((o, k) => o?.[k], obj);
+}
+
+function createTranslator(messages: any) {
+  return (key: string, vars?: Record<string, string>) => {
+    let text = getValue(messages, key) || key;
+
+    if (vars) {
+      Object.entries(vars).forEach(([k, v]) => {
+        text = text.replace(`{${k}}`, v);
+      });
+    }
+
+    return text;
+  };
+}
+
 async function loadMessages(locale: string): Promise<LocaleMessages> {
   return (await import(`../../../locales/${locale}.json`)).default as LocaleMessages;
 }
@@ -70,8 +87,8 @@ function normalizeExperienceItem(
 }
 
 async function buildContextSummary(locale: string) {
-  const t = await getTranslations({ locale });
   const messages = await loadMessages(locale);
+  const t = createTranslator(messages);
   const projects = Object.values(messages.home.projects.items);
   const experience = Object.values(messages.home.experience.items).map(normalizeExperienceItem);
   const education = [
@@ -83,25 +100,31 @@ async function buildContextSummary(locale: string) {
     },
   ];
   const skills = Object.values(messages.home.skills.groups);
+  console.log({ projects });
+
   const proj = projects
     .map(
       (p) =>
-        `Title: ${p.title}\nDescription: ${p.description}\nTech: ${p.tech.join(', ')}` +
+        `Title: ${p.title}\nDescription: ${p.description}\nTech: ${(p.tech || []).join(', ')}` +
         (p.href ? `\nLink: ${p.href}` : ''),
     )
     .join('\n---\n');
+
   const exp = experience
     .map(
       (e) =>
-        `Company: ${e.company}\nRole: ${e.role}\nPeriod: ${e.period}\nHighlights: ${e.achievements.join(' | ')}`,
+        `Company: ${e.company}\nRole: ${e.role}\nPeriod: ${e.period}\nHighlights: ${(e.achievements || []).join(' | ')}`,
     )
     .join('\n---\n');
+
   const edu = education
     .map(
       (e) => `School: ${e.school}\nDegree: ${e.degree}\nDetails: ${(e.details || []).join(' | ')}`,
     )
     .join('\n');
-  const skillStr = skills.map((g) => `${g.category}: ${g.skills.join(', ')}`).join(' | ');
+
+  const skillStr = skills.map((g) => `${g.category}: ${(g.skills || []).join(', ')}`).join(' | ');
+
   return [
     t('chat.system.intro', { name: siteConfig.name }),
     t('chat.system.siteDescription', { description: siteConfig.description }),
@@ -121,9 +144,10 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const messages: ChatMessage[] = body?.messages || [];
     const locale = hasLocale(routing.locales, body?.locale) ? body.locale : routing.defaultLocale;
-    const t = await getTranslations({ locale });
-    const requestedProvider: string | undefined = body?.provider; // optional override from client
+    const messagesData = await loadMessages(locale);
+    const t = createTranslator(messagesData);
 
+    const requestedProvider: string | undefined = body?.provider; // optional override from client
     const openaiKey = process.env.OPENAI_API_KEY;
     const geminiKey = process.env.GEMINI_API_KEY;
 
@@ -148,6 +172,8 @@ export async function POST(req: NextRequest) {
     }
 
     const systemPrompt = await buildContextSummary(locale);
+    console.log(systemPrompt);
+
     const recent = messages.slice(-10);
 
     if (provider === 'openai') {
@@ -225,7 +251,7 @@ export async function POST(req: NextRequest) {
       headers: { 'Content-Type': 'application/json' },
     });
   } catch (e: any) {
-    const fallbackTranslator = await getTranslations({ locale: routing.defaultLocale });
+    const fallbackTranslator = createTranslator(await loadMessages(routing.defaultLocale));
     return new Response(
       JSON.stringify({ error: e?.message || fallbackTranslator('chat.unexpectedError') }),
       {
