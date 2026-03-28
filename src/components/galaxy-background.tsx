@@ -347,11 +347,25 @@ export default function Galaxy({
   useEffect(() => {
     if (!ctnDom.current) return;
     const ctn = ctnDom.current;
-    const renderer = new Renderer({
-      alpha: transparent,
-      premultipliedAlpha: false,
-    });
+    let renderer: Renderer;
+
+    try {
+      renderer = new Renderer({
+        alpha: transparent,
+        premultipliedAlpha: false,
+      });
+    } catch (e) {
+      console.warn('WebGL not supported');
+      return;
+    }
+
     const gl = renderer.gl;
+
+    // ❗ Safari fix
+    if (!gl) {
+      console.warn('WebGL context is null');
+      return;
+    }
 
     if (transparent) {
       gl.enable(gl.BLEND);
