@@ -186,7 +186,7 @@ export function ChatWidget() {
       <button
         onClick={() => setOpen((current) => !current)}
         aria-label={open ? t('chat.close') : t('chat.open')}
-        className="button-primary flex h-12 w-12 items-center justify-center p-0 hover:scale-105"
+        className="button-primary flex h-12 w-12 items-center justify-center !p-0 hover:scale-105"
       >
         <span className="relative z-10 select-none font-semibold tracking-wide">
           {open ? '✕' : <BotIcon />}

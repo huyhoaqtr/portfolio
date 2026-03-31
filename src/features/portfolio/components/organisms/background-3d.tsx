@@ -1,9 +1,9 @@
 'use client';
-import Galaxy from '@/components/galaxy-background';
-import { useTheme } from '@/context/theme-context';
+import Galaxy from '@/common/components/atoms/background/galaxy';
+import { useAppSelector } from '@/redux/store/hooks';
 
 export function Background3D() {
-  const { theme } = useTheme();
+  const theme = useAppSelector((state) => state.theme.mode);
   const isDark = theme === 'dark';
   const galaxyConfig = isDark
     ? {

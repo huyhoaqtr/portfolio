@@ -1,1 +1,1 @@
-export { default } from '../page-content';
+export { default } from '@/features/portfolio';

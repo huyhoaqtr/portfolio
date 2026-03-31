@@ -1,7 +1,7 @@
 'use client';
 import { useTranslations } from 'next-intl';
 
-export default function AppLogo() {
+export function AppLogo() {
   const t = useTranslations('logo');
 
   return (

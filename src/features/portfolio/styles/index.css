@@ -1,0 +1,47 @@
+.panel {
+    @apply rounded-2xl border border-border/70 bg-surface/80 backdrop-blur-sm shadow-[0_20px_60px_-40px_hsl(var(--foreground)/0.35)] transition-colors duration-300;
+}
+
+.panel-hover {
+    @apply hover:border-primary/25;
+}
+
+.button-primary {
+    @apply inline-flex items-center gap-2 rounded-xl border border-primary bg-primary/75 px-7 py-3 text-sm font-semibold text-primary-foreground shadow-lg shadow-primary/15 transition-all duration-200 hover:bg-primary/90 hover:shadow-primary/25 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring/40;
+}
+
+.button-secondary {
+    @apply inline-flex items-center gap-2 rounded-xl border border-border bg-surface/70 px-7 py-3 text-sm font-semibold text-foreground transition-all duration-200 hover:border-primary/35 hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-ring/40;
+}
+
+.icon-button {
+    @apply flex items-center justify-center rounded-xl border border-border text-muted-foreground transition-all duration-200 hover:border-primary/35 hover:bg-surface hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-ring/40;
+}
+
+.header-container {
+    @apply pointer-events-auto mt-4 flex w-full items-center justify-between rounded-xl px-6 py-3 backdrop-blur-xl;
+}
+
+@keyframes blink {
+
+    0%,
+    50%,
+    100% {
+        opacity: 0.75;
+    }
+
+    25%,
+    75% {
+        opacity: 0;
+    }
+}
+
+.animate-blink {
+    animation: blink 1.5s step-start infinite;
+}
+
+.galaxy-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}

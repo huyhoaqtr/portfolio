@@ -2,9 +2,8 @@
 import NextLink from 'next/link';
 import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
-import AppLogo from '@/components/logo';
-import { ThemeToggle } from '@/components/theme-toggle';
-import { LanguageToggle } from '@/components/language-toggle';
+import { LanguageToggle, ThemeToggle, AppLogo } from '@/common/components';
+
 export function Header() {
   const t = useTranslations('common.nav');
   const nav = [

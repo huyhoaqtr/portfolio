@@ -3,9 +3,8 @@
 import Link from 'next/link';
 import type { ReactNode } from 'react';
 import { useTranslations } from 'next-intl';
-import { SocialIcons } from '@/components/icons/social';
-import { Card, FadeIn, SectionTitle } from '@/components/ui';
-import { siteConfig } from '@/config/site';
+import { Card, FadeIn, SectionTitle } from '@/common/components/atoms';
+import { siteConfig } from '@/common/configs/site';
 import {
   ExternalLink,
   ArrowUpRight,
@@ -22,8 +21,12 @@ import {
   Zap,
   Globe,
   Shield,
+  PackageOpenIcon,
+  MailIcon,
 } from 'lucide-react';
-import { TypingTextStyled } from '@/components/typing-text';
+import { TypingTextStyled } from '@/features/portfolio/components/atoms';
+import { GithubIcon } from '@/assets/icons';
+import { PortfolioLayout } from '@/features/portfolio/components/templates';
 
 const serviceIcons = [
   <Globe key="service-icon-0" size={22} />,
@@ -237,15 +240,17 @@ function useEducation(): EducationItem[] {
 
 export default function HomePage() {
   return (
-    <main className="relative mx-auto max-w-6xl px-6">
-      <Hero />
-      <WhatIDo />
-      <Projects />
-      <Experience />
-      <TechStack />
-      <Education />
-      <Contact />
-    </main>
+    <PortfolioLayout>
+      <main className="relative mx-auto max-w-6xl px-6">
+        <Hero />
+        <WhatIDo />
+        <Projects />
+        <Experience />
+        <TechStack />
+        <Education />
+        <Contact />
+      </main>
+    </PortfolioLayout>
   );
 }
 
@@ -303,17 +308,17 @@ function Hero() {
               {[
                 {
                   href: siteConfig.links.github,
-                  icon: <SocialIcons.Github size={18} />,
+                  icon: <GithubIcon width={18} height={18} />,
                   label: t('common.social.github'),
                 },
                 {
                   href: siteConfig.links.npm,
-                  icon: <SocialIcons.PackageOpen size={18} />,
+                  icon: <PackageOpenIcon size={18} />,
                   label: t('common.social.npm'),
                 },
                 {
                   href: `mailto:${siteConfig.links.email}`,
-                  icon: <SocialIcons.Mail size={18} />,
+                  icon: <MailIcon size={18} />,
                   label: t('common.social.email'),
                 },
               ].map((item) => (
@@ -602,9 +607,8 @@ function Contact() {
 function TechBadge({ children, small }: { children: React.ReactNode; small?: boolean }) {
   return (
     <span
-      className={`rounded-md border border-primary/15 bg-primary/10 font-medium text-primary ${
-        small ? 'px-2 py-0.5 text-[9px]' : 'px-2.5 py-0.5 text-[10px]'
-      } uppercase tracking-wide`}
+      className={`rounded-md border border-primary/15 bg-primary/10 font-medium text-primary ${small ? 'px-2 py-0.5 text-[9px]' : 'px-2.5 py-0.5 text-[10px]'
+        } uppercase tracking-wide`}
     >
       {children}
     </span>

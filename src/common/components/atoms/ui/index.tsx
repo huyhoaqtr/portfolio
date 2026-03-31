@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { cn } from '../lib/cn';
+import { cn } from '@/lib/cn';
 import { forwardRef } from 'react';
 
 export const FadeIn = ({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) => (

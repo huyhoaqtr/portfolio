@@ -1,4 +1,4 @@
-import { siteConfig } from "@/config/site";
+import { siteConfig } from "@/common/configs/site";
 
 export default function sitemap() {
   const baseUrl = siteConfig.url;

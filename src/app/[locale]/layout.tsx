@@ -1,4 +1,4 @@
-import '../globals.css';
+import '@/assets/styles/globals.css';
 import type { Metadata } from 'next';
 import { Inter, Sora } from 'next/font/google';
 import { NextIntlClientProvider, hasLocale } from 'next-intl';
@@ -6,7 +6,7 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import Providers from '../providers';
 import { routing } from '@/i18n/routing';
-import { siteConfig } from '@/config/site';
+import { siteConfig } from '@/common/configs/site';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 const sora = Sora({ subsets: ['latin'], variable: '--font-sora' });
@@ -92,7 +92,7 @@ export default async function LocaleLayout({ children, params }: Props) {
     <html
       lang={locale}
       suppressHydrationWarning
-      className={`${inter.variable} ${sora.variable} dark`}
+      className={`${inter.variable} ${sora.variable} dark bg-background`}
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
@@ -104,4 +104,4 @@ export default async function LocaleLayout({ children, params }: Props) {
       </body>
     </html>
   );
-}
+}   

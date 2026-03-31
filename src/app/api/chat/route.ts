@@ -1,6 +1,6 @@
 import { NextRequest } from 'next/server';
 import { hasLocale } from 'next-intl';
-import { siteConfig } from '@/config/site';
+import { siteConfig } from '@/common/configs/site';
 import { routing } from '@/i18n/routing';
 
 interface ChatMessage {
@@ -66,7 +66,7 @@ function createTranslator(messages: any) {
 }
 
 async function loadMessages(locale: string): Promise<LocaleMessages> {
-  return (await import(`../../../locales/${locale}.json`)).default as LocaleMessages;
+  return (await import(`@/i18n/locales/${locale}.json`)).default as LocaleMessages;
 }
 
 function normalizeExperienceItem(
